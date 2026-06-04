@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>São Paulo ♥ Jun 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-pink: #ff2d78;
+    --neon-purple: #bf00ff;
+    --neon-blue: #00c8ff;
+    --neon-gold: #ffd700;
+    --dark-bg: #080810;
+    --card-bg: #0e0e1a;
+    --card-border: #1e1e35;
+    --text-primary: #f0e6ff;
+    --text-muted: #7a7a9d;
+    --glow-pink: 0 0 18px rgba(255,45,120,0.55), 0 0 40px rgba(255,45,120,0.2);
+    --glow-purple: 0 0 18px rgba(191,0,255,0.55), 0 0 40px rgba(191,0,255,0.2);
+    --glow-blue: 0 0 18px rgba(0,200,255,0.55), 0 0 40px rgba(0,200,255,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--dark-bg);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% 0%, rgba(191,0,255,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255,45,120,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(0,200,255,0.05) 0%, transparent 70%);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.35;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--neon-pink);
+    margin-bottom: 16px;
+    text-shadow: var(--glow-pink);
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 12vw, 120px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #ffffff 0%, #e0c8ff 30%, #ff2d78 65%, #bf00ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+  }
+
+  /* Countdown */
+  .countdown {
+    display: inline-flex;
+    gap: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 16px 32px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .countdown::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+    z-index: -1;
+    opacity: 0.5;
+  }
+
+  .countdown-unit {
+    text-align: center;
+  }
+
+  .countdown-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    line-height: 1;
+    color: #fff;
+    text-shadow: var(--glow-pink);
+  }
+
+  .countdown-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .countdown-sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--neon-purple);
+    opacity: 0.5;
+    line-height: 1;
+    align-self: flex-start;
+    padding-top: 0;
+  }
+
+  .countdown-label-top {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--neon-pink);
+    margin-bottom: 12px;
+    display: block;
+    text-shadow: var(--glow-pink);
+  }
+
+  /* DAY TABS */
+  .tabs-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  .tabs-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 28px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .tabs-nav::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .tab-btn:hover {
+    border-color: var(--neon-purple);
+    color: var(--text-primary);
+  }
+
+  .tab-btn.active {
+    background: linear-gradient(135deg, rgba(255,45,120,0.15), rgba(191,0,255,0.15));
+    border-color: var(--neon-pink);
+    color: #fff;
+    box-shadow: var(--glow-pink);
+  }
+
+  .tab-btn .tab-day-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    line-height: 1;
+    display: block;
+    color: inherit;
+  }
+
+  .tab-btn .tab-day-name {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: block;
+  }
+
+  .tab-btn.active .tab-day-num {
+    color: var(--neon-pink);
+    text-shadow: var(--glow-pink);
+  }
+
+  /* TAB CONTENT */
+  .tab-content {
+    display: none;
+  }
+
+  .tab-content.active {
+    display: block;
+    animation: fadeInUp 0.4s ease;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--card-border);
+    position: relative;
+  }
+
+  .day-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    box-shadow: var(--glow-pink);
+  }
+
+  .day-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--neon-pink);
+    text-shadow: var(--glow-pink);
+    margin-bottom: 6px;
+  }
+
+  .day-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: #fff;
+    letter-spacing: 1px;
+  }
+
+  .day-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple), var(--neon-blue), transparent);
+    opacity: 0.3;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -25px;
+    top: 16px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--neon-pink);
+    box-shadow: 0 0 8px var(--neon-pink), 0 0 16px rgba(255,45,120,0.4);
+    transition: all 0.2s;
+  }
+
+  .timeline-item:hover .timeline-dot {
+    background: var(--neon-purple);
+    box-shadow: 0 0 12px var(--neon-purple), 0 0 24px rgba(191,0,255,0.5);
+    transform: scale(1.4);
+  }
+
+  .timeline-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-card:hover {
+    border-color: rgba(255,45,120,0.4);
+    transform: translateX(4px);
+    box-shadow: -4px 0 20px rgba(255,45,120,0.1);
+  }
+
+  .timeline-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+  }
+
+  .time-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: var(--neon-blue);
+    text-shadow: var(--glow-blue);
+    min-width: 90px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .event-icon {
+    font-size: 15px;
+    flex-shrink: 0;
+    width: 26px;
+    text-align: center;
+    opacity: 0.82;
+    line-height: 1;
+  }
+
+  .event-info {
+    flex: 1;
+  }
+
+  .event-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .event-type-badge {
+    display: inline-block;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  .badge-eat { background: rgba(255,45,120,0.15); color: var(--neon-pink); border: 1px solid rgba(255,45,120,0.2); }
+  .badge-culture { background: rgba(191,0,255,0.15); color: #d966ff; border: 1px solid rgba(191,0,255,0.2); }
+  .badge-walk { background: rgba(0,200,255,0.15); color: var(--neon-blue); border: 1px solid rgba(0,200,255,0.2); }
+  .badge-stay { background: rgba(255,215,0,0.1); color: var(--neon-gold); border: 1px solid rgba(255,215,0,0.2); }
+  .badge-nature { background: rgba(0,255,128,0.1); color: #00ff80; border: 1px solid rgba(0,255,128,0.2); }
+  .badge-night { background: rgba(191,0,255,0.2); color: #e066ff; border: 1px solid rgba(191,0,255,0.3); }
+  .badge-friends { background: rgba(255,165,0,0.15); color: #ffaa00; border: 1px solid rgba(255,165,0,0.2); }
+  .badge-travel { background: rgba(100,100,200,0.15); color: #aaaaff; border: 1px solid rgba(100,100,200,0.2); }
+
+  .expand-arrow {
+    color: var(--text-muted);
+    font-size: 12px;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    margin-left: auto;
+  }
+
+  .timeline-card.expanded .expand-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* Mark / checkbox */
+  .mark-checkbox {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .mark-checkbox input { display: none; }
+  .mark-checkbox .checkmark {
+    width: 17px;
+    height: 17px;
+    border: 1.5px solid var(--text-muted);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 10px;
+    color: transparent;
+    line-height: 1;
+  }
+  .mark-checkbox input:checked + .checkmark {
+    background: var(--neon-blue);
+    border-color: var(--neon-blue);
+    color: #fff;
+    box-shadow: 0 0 0 3px rgba(0,200,255,0.15);
+  }
+  .timeline-card.marked {
+    opacity: 0.6;
+    border-color: rgba(0,200,255,0.25);
+  }
+  .timeline-card.marked .event-name {
+    text-decoration: line-through;
+    color: var(--text-muted);
+  }
+
+  .timeline-card-body {
+    display: none;
+    border-top: 1px solid var(--card-border);
+  }
+
+  .timeline-card.expanded .timeline-card-body {
+    display: block;
+    animation: expandDown 0.3s ease;
+  }
+
+  @keyframes expandDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-body-inner {
+    padding: 16px 18px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .card-photo {
+    width: 140px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid var(--card-border);
+    filter: brightness(0.9) saturate(1.1);
+  }
+
+    width: 140px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--neon-gold);
+    filter: brightness(0.9) saturate(1.1);
+    box-shadow: 0 0 14px rgba(255,215,0,0.3);
+  }
+
+  .card-desc {
+    flex: 1;
+  }
+
+  .card-desc p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .card-desc strong {
+    color: var(--text-primary);
+  }
+
+  /* Special day card - Dia dos Namorados */
+  .valentines-banner {
+    background: linear-gradient(135deg, rgba(255,45,120,0.15), rgba(191,0,255,0.15));
+    border: 1px solid rgba(255,45,120,0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .valentines-banner::before {
+    content: '♥';
+    position: absolute;
+    font-size: 120px;
+    right: -20px;
+    top: -20px;
+    color: rgba(255,45,120,0.06);
+    line-height: 1;
+  }
+
+  .valentines-banner h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--neon-pink);
+    text-shadow: var(--glow-pink);
+    margin-bottom: 6px;
+  }
+
+  .valentines-banner p {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* Floating hearts */
+  .hearts-float {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .heart-float {
+    position: absolute;
+    font-size: 14px;
+    animation: floatHeart linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes floatHeart {
+    0% { transform: translateY(100%) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-200%) rotate(360deg); opacity: 0; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--dark-bg); }
+  ::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 4px; }
+
+  /* no-photo placeholder */
+  .card-photo-placeholder {
+    width: 140px;
+    height: 100px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    border: 1px solid var(--card-border);
+    background: linear-gradient(135deg, rgba(191,0,255,0.1), rgba(255,45,120,0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  /* Section separator */
+  .time-section-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 8px 0 4px;
+    opacity: 0.6;
+  }
+
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  footer span {
+    color: var(--neon-pink);
+    text-shadow: var(--glow-pink);
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating hearts -->
+<div class="hearts-float" id="heartsContainer"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">✦ Roteiro de viagem ✦ Dia dos Namorados 2026</p>
+  <h1 class="hero-title">São Paulo</h1>
+  <p class="hero-subtitle">12 — 16 de junho &nbsp;·&nbsp; de volta à Etersis</p>
+
+  <!-- (contagem regressiva removida) -->
+</div>
+
+<!-- TABS -->
+<div class="tabs-container">
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab(0)">
+      <span class="tab-day-num">12</span>
+      <span class="tab-day-name">Sex · Dia 1</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab(1)">
+      <span class="tab-day-num">13</span>
+      <span class="tab-day-name">Sáb · Dia 2</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab(2)">
+      <span class="tab-day-num">14</span>
+      <span class="tab-day-name">Dom · Dia 3</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab(3)">
+      <span class="tab-day-num">15</span>
+      <span class="tab-day-name">Seg · Dia 4</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab(4)">
+      <span class="tab-day-num">16</span>
+      <span class="tab-day-name">Ter · Volta</span>
+    </button>
+  </div>
+
+  <!-- ======== DIA 1 ======== -->
+  <div class="tab-content active" id="tab-0">
+    <div class="day-header">
+      <div class="day-label">Dia 1 / 4 &nbsp;·&nbsp; Sexta-feira, 12 de junho</div>
+      <div class="day-title">A CHEGADA</div>
+      <div class="day-subtitle">São Paulo te espera. E a cobertura, a banheira, e a noite.</div>
+    </div>
+
+    <div class="valentines-banner">
+      <h3>♥ Feliz Dia dos Namorados ♥</h3>
+      <p>Que o começo dessa viagem seja tão especial quanto vocês dois.</p>
+    </div>
+
+    <div class="timeline">
+      <!-- Check-in BnB -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">16:00 – 17:00</div>
+            <div class="event-icon">🏠</div>
+            <div class="event-info">
+              <div class="event-name">Chegada no Airbnb</div>
+              <span class="event-type-badge badge-stay">Cobertura · Centro SP</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc">
+                <p><strong>A base de operações.</strong> Cobertura com vista panorâmica do centro de São Paulo e banheira. O melhor ponto de partida para uma viagem de Dia dos Namorados. Faça o check-in com calma — o resto da noite vai pedir energia.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tem Umami -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">17:00 – 18:00</div>
+            <div class="event-icon">🚶‍♂️</div>
+            <div class="event-info">
+              <div class="event-name">Caminhada até o Tem Umami</div>
+              <span class="event-type-badge badge-walk">A pé</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc">
+                <p>Primeiro passeio pelo centro. Sinta a cidade, olhe pra cima — SP tem uma arquitetura que te engole do jeito certo. A caminhada é o ritual de chegada.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Jantar Tem Umami -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">18:00 – 20:00</div>
+            <div class="event-icon">🍜</div>
+            <div class="event-info">
+              <div class="event-name">Tem Umami — Bar ou Lamen</div>
+              <span class="event-type-badge badge-eat">Jantar · Dia dos Namorados</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc">
+                <p><strong>Tem Umami</strong> — o lamen que virou destino. Uma das casas mais queridas da cena japonesa em SP, famosa pela profundidade dos caldos e pelo ambiente que mistura aconchego e estilo. Tem bar também, pra quem quiser começar com um drinque.</p>
+                <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Tem+Umami+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Voltar ao BnB -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">20:00 – 20:15</div>
+            <div class="event-icon">🌆</div>
+            <div class="event-info">
+              <div class="event-name">De volta pra cobertura</div>
+              <span class="event-type-badge badge-stay">Vista noturna · SP</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc">
+                <p>SP de noite vista de cima é outra coisa. Luzes por todos os lados, o burburinho da cidade lá embaixo. Um final de noite para dois, com banheira e a skyline como cenário.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== DIA 2 ======== -->
+  <div class="tab-content" id="tab-1">
+    <div class="day-header">
+      <div class="day-label">Dia 2 / 4 &nbsp;·&nbsp; Sábado, 13 de junho</div>
+      <div class="day-title">O CENTRO HISTÓRICO</div>
+      <div class="day-subtitle">Mosteiros, museus e uma noite que começa do alto.</div>
+    </div>
+
+    <div class="timeline">
+      <!-- Mosteiro -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">09:00 – 09:15</div>
+            <div class="event-icon">🚶‍♂️</div>
+            <div class="event-info">
+              <div class="event-name">Caminhada até o Mosteiro de São Bento</div>
+              <span class="event-type-badge badge-walk">A pé</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>Manhã fresca, ruas ainda calmas do centro. Ideal para sentir o pulso da cidade acordando.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">09:15 – 09:45</div>
+            <div class="event-icon">☕</div>
+            <div class="event-info">
+              <div class="event-name">Café no Mosteiro de São Bento</div>
+              <span class="event-type-badge badge-eat">Café da manhã</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>O famoso café colonial dos monges beneditinos. Pão, manteiga, mel, queijo... tudo feito pelos monges. Um ritual matinal que não tem igual em SP. Chegue cedo — a fila aparece rápido.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Mosteiro+de+S%C3%A3o+Bento+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">09:45 – 10:15</div>
+            <div class="event-icon">⛪</div>
+            <div class="event-info">
+              <div class="event-name">Mosteiro de São Bento</div>
+              <span class="event-type-badge badge-culture">Patrimônio histórico</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p><strong>Fundado em 1598.</strong> A basílica tem um interior dourado e deslumbrante — um contraste total com o caos da metrópole lá fora. Um dos edifícios mais impressionantes do centro histórico paulistano.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Mosteiro+de+S%C3%A3o+Bento+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">10:15 – 10:45</div>
+            <div class="event-icon">🏙️</div>
+            <div class="event-info">
+              <div class="event-name">Farol Santander</div>
+              <span class="event-type-badge badge-culture">Mirante · Arte</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p><strong>O arranha-céu mais icônico do centro.</strong> O Edifício Altino Arantes tem um terraço de onde SP se revela inteira. Arte contemporânea nos andares, vista de 360° no topo. Um must.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Farol+Sandersantander+S%C3%A3o+Paulo+OR+Edif%C3%ADcio+Altino+Arantes" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">10:45 – 11:15</div>
+            <div class="event-icon">🎨</div>
+            <div class="event-info">
+              <div class="event-name">Centro Cultural Banco do Brasil</div>
+              <span class="event-type-badge badge-culture">CCBB · Arte</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>O CCBB SP é um dos centros culturais mais visitados do Brasil. Sempre tem uma exposição incrível rolando — o edifício histórico em si já vale a visita.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=CCBB+Centro+Cultural+Banco+do+Brasil+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">11:15 – 12:00</div>
+            <div class="event-icon">🏛️</div>
+            <div class="event-info">
+              <div class="event-name">Pátio do Colégio</div>
+              <span class="event-type-badge badge-culture">Fundação de SP</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p><strong>Aqui SP nasceu.</strong> O local exato onde os jesuítas fundaram a cidade em 1554. Uma mistura de museu, igreja e praça aberta — no coração do centro histórico.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=P%C3%A1tio+do+Col%C3%A9gio+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">12:00 – 12:30</div>
+            <div class="event-icon">🏙️</div>
+            <div class="event-info">
+              <div class="event-name">Museu da Cidade de São Paulo</div>
+              <span class="event-type-badge badge-culture">História paulistana</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>A memória urbana de São Paulo em formato de museu. Fotos, mapas e objetos que mostram como essa cidade gigante se construiu ao longo dos séculos.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Museu+da+Cidade+de+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">12:30 – 13:30</div>
+            <div class="event-icon">🍽️</div>
+            <div class="event-info">
+              <div class="event-name">Pateo Cuccina ou Almoço</div>
+              <span class="event-type-badge badge-eat">Almoço</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>Pausa necessária depois de tanta cultura. Recarregue para a segunda metade do dia.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Pateo+Cuccina+OR+P%C3%A1tio+Cucina+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">13:30 – 15:00</div>
+            <div class="event-icon">🖼️</div>
+            <div class="event-info">
+              <div class="event-name">Pinacoteca do Estado</div>
+              <span class="event-type-badge badge-culture">Arte brasileira</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p><strong>O museu de arte mais antigo de SP.</strong> Tijolos vermelhos, jardim interno e um acervo imenso de arte brasileira. A Pinacoteca tem uma qualidade de silêncio que poucos lugares conseguem.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Pinacoteca+do+Estado+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">15:00 – 15:30</div>
+            <div class="event-icon">📚</div>
+            <div class="event-info">
+              <div class="event-name">Museu da Literatura Brasileira</div>
+              <span class="event-type-badge badge-culture">Literatura</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>Para quem ama palavras. Um espaço dedicado à memória literária brasileira — autores, manuscritos, primeiras edições.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Museu+da+Literatura+Brasileira+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">15:30 – 16:15</div>
+            <div class="event-icon">✝️</div>
+            <div class="event-info">
+              <div class="event-name">MAS SP — Museu de Arte Sacra</div>
+              <span class="event-type-badge badge-culture">Arte sacra</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>Instalado no Mosteiro da Imaculada Conceição, o MAS SP tem um dos maiores acervos de arte sacra da América Latina. Esculturas, pinturas e ourivesaria dos séculos XVII ao XX.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Museu+de+Arte+Sacra+de+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">17:00 – 18:30</div>
+            <div class="event-icon">🏠</div>
+            <div class="event-info">
+              <div class="event-name">Bnb — Se arrumar</div>
+              <span class="event-type-badge badge-stay">Preparação</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>Aquela banheira de cobertura chama. Descanse, se arrume com calma. A noite no Lassù vai pedir o melhor visual.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">19:00 – 21:00</div>
+            <div class="event-icon">🍷</div>
+            <div class="event-info">
+              <div class="event-name">Jantar no Lassù</div>
+              <span class="event-type-badge badge-eat">Jantar · Restaurante giratório</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p><strong>O restaurante giratório mais famoso de SP.</strong> No topo do Hotel Unique, o Lassù gira lentamente enquanto SP se revela em 360°. Alta gastronomia com a melhor vista possível. Uma das experiências mais cinematográficas da cidade.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Lass%C3%B9+Hotel+Unique+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">21:00 – 22:00</div>
+            <div class="event-icon">🌃</div>
+            <div class="event-info">
+              <div class="event-name">Iccarus Bar</div>
+              <span class="event-type-badge badge-night">Bar noturno · Centro</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p><strong>Iccarus</strong> — um dos bares mais badalados do centro histórico de SP. Ambiente descolado, drinques autorais, música boa. O lugar certo pra fechar uma noite como essa.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Iccarus+Bar+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== DIA 3 ======== -->
+  <div class="tab-content" id="tab-2">
+    <div class="day-header">
+      <div class="day-label">Dia 3 / 4 &nbsp;·&nbsp; Domingo, 14 de junho</div>
+      <div class="day-title">A NATUREZA & O FIGUEIRA</div>
+      <div class="day-subtitle">Do aquário ao zoológico, de tubarões a girafas — e uma figueira centenária.</div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">08:30 – 09:00</div>
+            <div class="event-icon">☕</div>
+            <div class="event-info">
+              <div class="event-name">Café da Manhã</div>
+              <span class="event-type-badge badge-eat">Manhã na cobertura</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>Vista de SP ao amanhecer com café na mão. Aproveite antes de descer pro dia aventureiro.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">09:30 – 11:30</div>
+            <div class="event-icon">🦈</div>
+            <div class="event-info">
+              <div class="event-name">Aquário de São Paulo</div>
+              <span class="event-type-badge badge-nature">Natureza · Vida marinha</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p><strong>O maior aquário da América do Sul.</strong> Tubarões, raias, polvos, arraias elétricas — mais de 300 espécies. O túnel subaquático onde você fica rodeado de tubarões por todos os lados é inesquecível.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Aqu%C3%A1rio+de+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">11:30 – 12:30</div>
+            <div class="event-icon">🍽️</div>
+            <div class="event-info">
+              <div class="event-name">Almoço</div>
+              <span class="event-type-badge badge-eat">Almoço</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>Recarregue antes do zoológico. Fome de girafas só funciona com barriga cheia.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">13:00 – 17:00</div>
+            <div class="event-icon">🦁</div>
+            <div class="event-info">
+              <div class="event-name">Zoológico de São Paulo</div>
+              <span class="event-type-badge badge-nature">Zoo · Mata Atlântica</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p><strong>O maior zoológico da América Latina.</strong> Mais de 3.000 animais em 824 mil m² de Mata Atlântica preservada. Girafas, leões, hipopótamos, micos... reserve tempo pra passear sem pressa.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Zool%C3%B3gico+de+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">17:00 – 18:30</div>
+            <div class="event-icon">🏠</div>
+            <div class="event-info">
+              <div class="event-name">Bnb — Se arrumar</div>
+              <span class="event-type-badge badge-stay">Preparação</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>Banho, visual e disposição. A cobertura com vista e banheira pede calma antes da noite especial no Figueira.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">19:00 – 22:00</div>
+            <div class="event-icon">🌳</div>
+            <div class="event-info">
+              <div class="event-name">Jantar no Figueira Rubaiyat</div>
+              <span class="event-type-badge badge-eat">Jantar · Gastronomia</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p><strong>O restaurante debaixo de uma figueira centenária.</strong> O Figueira Rubaiyat é uma das experiências gastronômicas mais únicas de SP — o salão todo é construído em volta de uma figueira de 100 anos. Carnes argentinas, atmosfera única, memória garantida.</p>
+              <p style="margin-top:8px;"><a href="https://www.google.com/maps/search/?api=1&query=Figueira+Rubaiyat+S%C3%A3o+Paulo" target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google Maps</a></p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== DIA 4 ======== -->
+  <div class="tab-content" id="tab-3">
+    <div class="day-header">
+      <div class="day-label">Dia 4 / 4 &nbsp;·&nbsp; Segunda-feira, 15 de junho</div>
+      <div class="day-title">O DIA DO CHURUMELAS</div>
+      <div class="day-subtitle">Check-out da cobertura. E então — o melhor amigo merece.</div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">12:00 – 12:15</div>
+            <div class="event-icon">🏠</div>
+            <div class="event-info">
+              <div class="event-name">Check-out do Airbnb</div>
+              <span class="event-type-badge badge-stay">Despedida da cobertura</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>Última olhada pra SP lá embaixo. Guarda bem essa vista da cobertura. E desce pro próximo capítulo da viagem com o coração cheio.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">12:15 – 20:00</div>
+            <div class="event-icon">🎉</div>
+            <div class="event-info">
+              <div class="event-name">Na casa do Churumelas</div>
+              <span class="event-type-badge badge-friends">O melhor amigo</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p><strong>O Churumelas merece esse destaque.</strong> Dia especial na casa do melhor amigo — risada sem parar, caos bonito, memórias que só quem é família de verdade constrói. Sem roteiro, sem hora marcada, só presença e carinho.</p>
+              <p style="margin-top:8px; font-size: 11px; letter-spacing: 1px; color: var(--neon-gold);">✦ A agenda oficial termina aqui ✦</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== DIA 5 - VOLTA ======== -->
+  <div class="tab-content" id="tab-4">
+    <div class="day-header">
+      <div class="day-label">Terça-feira, 16 de junho</div>
+      <div class="day-title">A VOLTA</div>
+      <div class="day-subtitle">Florianópolis chama. SP fica na memória.</div>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card" onclick="toggleCard(this)">
+          <div class="timeline-card-header">
+            <div class="time-badge">08:30 – 09:30</div>
+            <div class="event-icon">🚗</div>
+            <div class="event-info">
+              <div class="event-name">Volta para Florianópolis</div>
+              <span class="event-type-badge badge-travel">Viagem de retorno</span>
+            </div>
+            <div class="expand-arrow">▼</div>
+          </div>
+          <div class="timeline-card-body">
+            <div class="card-body-inner">
+              <div class="card-desc"><p>São Paulo ficou pra trás — mas a viagem ficou pra sempre. De volta pra Floripa com a cabeça cheia de memórias boas e o coração agradecido.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; padding: 40px 20px; position: relative;">
+      <div style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; color: var(--text-muted); line-height: 1.6;">
+        "The city was ours for a moment,<br>
+        <span style="color: var(--neon-pink); text-shadow: var(--glow-pink);">and that's all we needed.</span>"
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Feito com <span>♥</span> para vocês dois &nbsp;·&nbsp; São Paulo, junho de 2026
+</footer>
+
+<script>
+  function switchTab(index) {
+    document.querySelectorAll('.tab-content').forEach((el, i) => {
+      el.classList.toggle('active', i === index);
+    });
+    document.querySelectorAll('.tab-btn').forEach((el, i) => {
+      el.classList.toggle('active', i === index);
+    });
+  }
+
+  function toggleCard(card) {
+    card.classList.toggle('expanded');
+  }
+
+  // Floating hearts
+  const heartsContainer = document.getElementById('heartsContainer');
+  const heartChars = ['♥', '♡', '✦', '✧', '⋆'];
+  const heartColors = ['#ff2d78', '#bf00ff', '#00c8ff', '#ffd700', '#ff8cc8'];
+
+  function createHeart() {
+    const heart = document.createElement('span');
+    heart.classList.add('heart-float');
+    heart.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.animationDuration = (Math.random() * 8 + 6) + 's';
+    heart.style.animationDelay = (Math.random() * 3) + 's';
+    heart.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+    heart.style.fontSize = (Math.random() * 12 + 8) + 'px';
+    heart.style.opacity = '0';
+    heartsContainer.appendChild(heart);
+    setTimeout(() => heart.remove(), 14000);
+  }
+
+  setInterval(createHeart, 1200);
+
+  // === Marcar destinos (checkbox + localStorage) ===
+  function initMarking() {
+    const cards = document.querySelectorAll('.timeline-card');
+    cards.forEach((card, index) => {
+      const header = card.querySelector('.timeline-card-header');
+      if (!header) return;
+
+      // Create checkbox
+      const label = document.createElement('label');
+      label.className = 'mark-checkbox';
+      label.innerHTML = `
+        <input type="checkbox">
+        <span class="checkmark">✓</span>
+      `;
+
+      const checkbox = label.querySelector('input');
+      const eventNameEl = card.querySelector('.event-name');
+      const key = eventNameEl ? eventNameEl.textContent.trim() : `card-${index}`;
+
+      // Load saved state
+      if (localStorage.getItem('marked_' + key) === 'true') {
+        checkbox.checked = true;
+        card.classList.add('marked');
+      }
+
+      // Toggle handler
+      checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+          card.classList.add('marked');
+          localStorage.setItem('marked_' + key, 'true');
+        } else {
+          card.classList.remove('marked');
+          localStorage.removeItem('marked_' + key);
+        }
+      });
+
+      // Insert before expand arrow
+      const arrow = header.querySelector('.expand-arrow');
+      if (arrow) {
+        header.insertBefore(label, arrow);
+      } else {
+        header.appendChild(label);
+      }
+    });
+  }
+
+  // Run after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMarking);
+  } else {
+    initMarking();
+  }
+</script>
+</body>
+</html>
+HTMLEOF
+echo "Done"
+Saída
+
