@@ -19,9 +19,9 @@
       --card-border: #1e1e35;
       --text-primary: #f0e6ff;
       --text-muted: #7a7a9d;
-      --glow-pink: 0 0 18px rgba(255, 45, 120, 0.55), 0 0 40px rgba(255, 45, 120, 0.2);
-      --glow-purple: 0 0 18px rgba(191, 0, 255, 0.55), 0 0 40px rgba(191, 0, 255, 0.2);
-      --glow-blue: 0 0 18px rgba(0, 200, 255, 0.55), 0 0 40px rgba(0, 200, 255, 0.2);
+      --glow-pink: 0 0 10px rgba(255, 45, 120, 0.38), 0 0 26px rgba(255, 45, 120, 0.12);
+      --glow-purple: 0 0 10px rgba(191, 0, 255, 0.38), 0 0 26px rgba(191, 0, 255, 0.12);
+      --glow-blue: 0 0 10px rgba(0, 200, 255, 0.38), 0 0 26px rgba(0, 200, 255, 0.12);
     }
 
     * {
@@ -33,9 +33,15 @@
     body {
       background-color: var(--dark-bg);
       background-image:
-        radial-gradient(ellipse 80% 50% at 20% 0%, rgba(191, 0, 255, 0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255, 45, 120, 0.1) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(0, 200, 255, 0.05) 0%, transparent 70%);
+        radial-gradient(ellipse 80% 50% at 20% 0%, rgba(191, 0, 255, 0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(255, 45, 120, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(0, 200, 255, 0.04) 0%, transparent 70%),
+        linear-gradient(to bottom, rgba(8, 8, 16, 0.22) 0%, rgba(8, 8, 16, 0.70) 36%, rgba(8, 8, 16, 0.96) 52%, rgba(8, 8, 16, 1) 62%),
+        url('https://fi-hatchbox-production-uploads.s3.amazonaws.com/posts/Sao_Paulo.jpg');
+      background-size: auto, auto, auto, auto, cover;
+      background-position: center, center, center, center, center -90px;
+      background-attachment: fixed, fixed, fixed, fixed, fixed;
+      background-repeat: no-repeat;
       color: var(--text-primary);
       font-family: 'DM Sans', sans-serif;
       min-height: 100vh;
@@ -50,14 +56,56 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none;
       z-index: 9999;
-      opacity: 0.35;
+      opacity: 0.3;
+    }
+
+    /* ── Sakura petals ── */
+    #sakuraContainer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      top: -30px;
+      opacity: 0;
+      animation: petalFall linear infinite;
+      will-change: transform, opacity;
+    }
+
+    .petal svg {
+      display: block;
+    }
+
+    @keyframes petalFall {
+      0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0;
+      }
+
+      5% {
+        opacity: 0.55;
+      }
+
+      85% {
+        opacity: 0.35;
+      }
+
+      100% {
+        transform: translateY(110vh) rotate(480deg) translateX(40px);
+        opacity: 0;
+      }
     }
 
     /* HERO */
     .hero {
       text-align: center;
-      padding: 60px 20px 40px;
+      padding: 70px 20px 48px;
       position: relative;
+      z-index: 2;
     }
 
     .hero-eyebrow {
@@ -68,7 +116,24 @@
       text-transform: uppercase;
       color: var(--neon-pink);
       margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
       text-shadow: var(--glow-pink);
+      animation: neonFlicker 9s ease-in-out infinite;
+    }
+
+    .hero-eyebrow-line {
+      display: inline-block;
+      width: 32px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-pink));
+      opacity: 0.5;
+    }
+
+    .hero-eyebrow-line.right {
+      background: linear-gradient(90deg, var(--neon-pink), transparent);
     }
 
     .hero-title {
@@ -76,11 +141,12 @@
       font-size: clamp(64px, 12vw, 120px);
       line-height: 0.9;
       letter-spacing: 2px;
-      background: linear-gradient(135deg, #ffffff 0%, #e0c8ff 30%, #ff2d78 65%, #bf00ff 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #ffffff 40%, #f0d8ff 58%, #ff80b0 80%, #cc44ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 12px;
+      filter: drop-shadow(0 0 28px rgba(255, 45, 120, 0.24)) drop-shadow(0 0 55px rgba(191, 0, 255, 0.14));
     }
 
     .hero-subtitle {
@@ -88,82 +154,23 @@
       font-style: italic;
       font-size: 18px;
       color: var(--text-muted);
-      margin-bottom: 32px;
+      margin-bottom: 0;
       letter-spacing: 1px;
-    }
-
-    /* Countdown */
-    .countdown {
-      display: inline-flex;
-      gap: 20px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 16px 32px;
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .countdown::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
-      z-index: -1;
-      opacity: 0.5;
-    }
-
-    .countdown-unit {
-      text-align: center;
-    }
-
-    .countdown-number {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 36px;
-      line-height: 1;
-      color: #fff;
-      text-shadow: var(--glow-pink);
-    }
-
-    .countdown-label {
-      font-size: 9px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
-    .countdown-sep {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 36px;
-      color: var(--neon-purple);
-      opacity: 0.5;
-      line-height: 1;
-      align-self: flex-start;
-      padding-top: 0;
-    }
-
-    .countdown-label-top {
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--neon-pink);
-      margin-bottom: 12px;
-      display: block;
-      text-shadow: var(--glow-pink);
     }
 
     /* DAY TABS */
     .tabs-container {
       max-width: 900px;
       margin: 0 auto;
-      padding: 0 20px 60px;
+      padding: 32px 20px 60px;
+      position: relative;
+      z-index: 2;
     }
 
     .tabs-nav {
       display: flex;
       gap: 8px;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
       overflow-x: auto;
       padding-bottom: 4px;
       scrollbar-width: none;
@@ -180,7 +187,7 @@
       padding: 10px 20px;
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.25s ease;
+      transition: all 0.3s ease;
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
       font-weight: 500;
@@ -189,12 +196,12 @@
     }
 
     .tab-btn:hover {
-      border-color: var(--neon-purple);
+      border-color: var(--lavender-dim);
       color: var(--text-primary);
     }
 
     .tab-btn.active {
-      background: linear-gradient(135deg, rgba(255, 45, 120, 0.15), rgba(191, 0, 255, 0.15));
+      background: linear-gradient(135deg, rgba(255, 45, 120, 0.12), rgba(191, 0, 255, 0.12));
       border-color: var(--neon-pink);
       color: #fff;
       box-shadow: var(--glow-pink);
@@ -227,13 +234,13 @@
 
     .tab-content.active {
       display: block;
-      animation: fadeInUp 0.4s ease;
+      animation: fadeInUp 0.45s ease;
     }
 
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(18px);
       }
 
       to {
@@ -242,31 +249,107 @@
       }
     }
 
+    /* Per-day accent colours */
+    #tab-0 {
+      --day-accent: #ff2d78;
+      --day-accent-dim: rgba(255, 45, 120, 0.15);
+      --day-glow: rgba(255, 45, 120, 0.28);
+    }
+
+    #tab-1 {
+      --day-accent: #ffd700;
+      --day-accent-dim: rgba(255, 215, 0, 0.15);
+      --day-glow: rgba(255, 215, 0, 0.22);
+    }
+
+    #tab-2 {
+      --day-accent: #00e880;
+      --day-accent-dim: rgba(0, 232, 128, 0.12);
+      --day-glow: rgba(0, 232, 128, 0.2);
+    }
+
+    #tab-3 {
+      --day-accent: #ffd700;
+      --day-accent-dim: rgba(255, 215, 0, 0.15);
+      --day-glow: rgba(255, 215, 0, 0.25);
+    }
+
+    #tab-4 {
+      --day-accent: #bf00ff;
+      --day-accent-dim: rgba(191, 0, 255, 0.15);
+      --day-glow: rgba(191, 0, 255, 0.22);
+    }
+
     .day-header {
       margin-bottom: 28px;
       padding-bottom: 20px;
       border-bottom: 1px solid var(--card-border);
       position: relative;
+      overflow: hidden;
     }
 
+    /* Progress tracker track (full width, faint) */
     .day-header::after {
       content: '';
       position: absolute;
       bottom: -1px;
       left: 0;
-      width: 80px;
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    /* Progress fill — animated on tab activate */
+    .day-progress {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
       height: 2px;
-      background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
-      box-shadow: var(--glow-pink);
+      background: var(--day-accent);
+      box-shadow: 0 0 10px var(--day-glow);
+      opacity: 0.88;
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+
+    .tab-content.active .day-progress {
+      animation: progressFill 0.75s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+    }
+
+    @keyframes progressFill {
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    /* Per-day fill widths — represents journey position */
+    #tab-0 .day-progress {
+      width: 8%;
+    }
+
+    #tab-1 .day-progress {
+      width: 30%;
+    }
+
+    #tab-2 .day-progress {
+      width: 55%;
+    }
+
+    #tab-3 .day-progress {
+      width: 78%;
+    }
+
+    #tab-4 .day-progress {
+      width: 100%;
     }
 
     .day-label {
-      font-size: 11px;
+      font-size: 10px;
       letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--neon-pink);
-      text-shadow: var(--glow-pink);
-      margin-bottom: 6px;
+      color: var(--day-accent, var(--lavender-dim));
+      margin-bottom: 8px;
+      opacity: 0.85;
     }
 
     .day-title {
@@ -282,10 +365,48 @@
       font-style: italic;
       font-size: 15px;
       color: var(--text-muted);
-      margin-top: 6px;
+      margin-top: 7px;
     }
 
-    /* TIMELINE */
+    /* ── Day 1 hero banner ── */
+    .valentines-banner {
+      background: linear-gradient(135deg, rgba(255, 45, 120, 0.12), rgba(191, 0, 255, 0.12));
+      border: 1px solid rgba(255, 45, 120, 0.25);
+      border-radius: 16px;
+      padding: 20px 24px;
+      text-align: center;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .valentines-banner::before {
+      content: '♥';
+      position: absolute;
+      font-size: 120px;
+      right: -20px;
+      top: -20px;
+      color: rgba(255, 45, 120, 0.05);
+      line-height: 1;
+    }
+
+    .valentines-banner h3 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--neon-pink);
+      text-shadow: var(--glow-pink);
+      margin-bottom: 6px;
+      position: relative;
+    }
+
+    .valentines-banner p {
+      font-size: 13px;
+      color: var(--text-muted);
+      position: relative;
+    }
+
+    /* ── TIMELINE ── */
     .timeline {
       position: relative;
       padding-left: 28px;
@@ -298,8 +419,11 @@
       top: 8px;
       bottom: 8px;
       width: 1px;
-      background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple), var(--neon-blue), transparent);
-      opacity: 0.3;
+      background: linear-gradient(180deg,
+          var(--day-accent, var(--lavender-dim)),
+          rgba(184, 169, 204, 0.1),
+          transparent);
+      opacity: 0.35;
     }
 
     .timeline-item {
@@ -311,18 +435,18 @@
       position: absolute;
       left: -25px;
       top: 16px;
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: var(--neon-pink);
-      box-shadow: 0 0 8px var(--neon-pink), 0 0 16px rgba(255, 45, 120, 0.4);
-      transition: all 0.2s;
+      background: var(--day-accent, var(--lavender-dim));
+      opacity: 0.75;
+      transition: all 0.25s;
     }
 
     .timeline-item:hover .timeline-dot {
-      background: var(--neon-purple);
-      box-shadow: 0 0 12px var(--neon-purple), 0 0 24px rgba(191, 0, 255, 0.5);
-      transform: scale(1.4);
+      opacity: 1;
+      transform: scale(1.5);
+      box-shadow: 0 0 10px var(--day-glow, rgba(184, 169, 204, 0.4));
     }
 
     .timeline-card {
@@ -335,9 +459,9 @@
     }
 
     .timeline-card:hover {
-      border-color: rgba(255, 45, 120, 0.4);
-      transform: translateX(4px);
-      box-shadow: -4px 0 20px rgba(255, 45, 120, 0.1);
+      border-color: var(--day-accent-dim, rgba(184, 169, 204, 0.15));
+      transform: translateX(3px);
+      box-shadow: -3px 0 18px var(--day-glow, rgba(184, 169, 204, 0.08));
     }
 
     .timeline-card-header {
@@ -359,12 +483,24 @@
     }
 
     .event-icon {
-      font-size: 15px;
       flex-shrink: 0;
-      width: 26px;
-      text-align: center;
-      opacity: 0.82;
-      line-height: 1;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--day-accent, var(--lavender-dim));
+      opacity: 0.75;
+    }
+
+    .event-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .event-info {
@@ -390,59 +526,60 @@
     }
 
     .badge-eat {
-      background: rgba(255, 45, 120, 0.15);
+      background: rgba(255, 45, 120, 0.12);
       color: var(--neon-pink);
       border: 1px solid rgba(255, 45, 120, 0.2);
     }
 
     .badge-culture {
-      background: rgba(191, 0, 255, 0.15);
+      background: rgba(191, 0, 255, 0.12);
       color: #d966ff;
       border: 1px solid rgba(191, 0, 255, 0.2);
     }
 
     .badge-walk {
-      background: rgba(0, 200, 255, 0.15);
+      background: rgba(0, 200, 255, 0.12);
       color: var(--neon-blue);
       border: 1px solid rgba(0, 200, 255, 0.2);
     }
 
     .badge-stay {
-      background: rgba(255, 215, 0, 0.1);
+      background: rgba(255, 215, 0, 0.08);
       color: var(--neon-gold);
-      border: 1px solid rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(255, 215, 0, 0.18);
     }
 
     .badge-nature {
-      background: rgba(0, 255, 128, 0.1);
-      color: #00ff80;
-      border: 1px solid rgba(0, 255, 128, 0.2);
+      background: rgba(0, 255, 128, 0.08);
+      color: #00e880;
+      border: 1px solid rgba(0, 255, 128, 0.18);
     }
 
     .badge-night {
-      background: rgba(191, 0, 255, 0.2);
+      background: rgba(191, 0, 255, 0.15);
       color: #e066ff;
-      border: 1px solid rgba(191, 0, 255, 0.3);
+      border: 1px solid rgba(191, 0, 255, 0.25);
     }
 
     .badge-friends {
-      background: rgba(255, 165, 0, 0.15);
+      background: rgba(255, 165, 0, 0.12);
       color: #ffaa00;
       border: 1px solid rgba(255, 165, 0, 0.2);
     }
 
     .badge-travel {
-      background: rgba(100, 100, 200, 0.15);
+      background: rgba(100, 100, 200, 0.12);
       color: #aaaaff;
       border: 1px solid rgba(100, 100, 200, 0.2);
     }
 
     .expand-arrow {
       color: var(--text-muted);
-      font-size: 12px;
+      font-size: 11px;
       transition: transform 0.3s;
       flex-shrink: 0;
       margin-left: auto;
+      opacity: 0.6;
     }
 
     .timeline-card.expanded .expand-arrow {
@@ -463,15 +600,15 @@
     }
 
     .mark-checkbox .checkmark {
-      width: 17px;
-      height: 17px;
-      border: 1.5px solid var(--text-muted);
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--card-border);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: all 0.2s ease;
-      font-size: 10px;
+      font-size: 9px;
       color: transparent;
       line-height: 1;
     }
@@ -480,12 +617,12 @@
       background: var(--neon-blue);
       border-color: var(--neon-blue);
       color: #fff;
-      box-shadow: 0 0 0 3px rgba(0, 200, 255, 0.15);
+      box-shadow: 0 0 0 2px rgba(0, 200, 255, 0.18);
     }
 
     .timeline-card.marked {
-      opacity: 0.6;
-      border-color: rgba(0, 200, 255, 0.25);
+      opacity: 0.5;
+      border-color: rgba(0, 200, 255, 0.2);
     }
 
     .timeline-card.marked .event-name {
@@ -506,7 +643,7 @@
     @keyframes expandDown {
       from {
         opacity: 0;
-        transform: translateY(-8px);
+        transform: translateY(-6px);
       }
 
       to {
@@ -529,7 +666,7 @@
       object-fit: cover;
       flex-shrink: 0;
       border: 1px solid var(--card-border);
-      filter: brightness(0.9) saturate(1.1);
+      filter: brightness(0.85) saturate(0.9);
     }
 
     .card-desc {
@@ -539,85 +676,207 @@
     .card-desc p {
       font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     .card-desc strong {
       color: var(--text-primary);
     }
 
-    /* Special day card - Dia dos Namorados */
-    .valentines-banner {
-      background: linear-gradient(135deg, rgba(255, 45, 120, 0.15), rgba(191, 0, 255, 0.15));
-      border: 1px solid rgba(255, 45, 120, 0.3);
-      border-radius: 16px;
-      padding: 20px 24px;
-      text-align: center;
-      margin-bottom: 24px;
-      position: relative;
-      overflow: hidden;
+    /* Maps link */
+    .maps-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--mist-blue);
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.2s;
     }
 
-    .valentines-banner::before {
-      content: '♥';
+    .maps-link:hover {
+      opacity: 1;
+    }
+
+    .maps-link svg {
+      width: 11px;
+      height: 11px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ── Day 2: Centro Histórico — aged ornament ── */
+    #tab-1 .day-header {
+      background: radial-gradient(ellipse 80% 120% at 95% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 65%);
+    }
+
+    #tab-1 .day-header .day-ornament {
       position: absolute;
-      font-size: 120px;
-      right: -20px;
-      top: -20px;
-      color: rgba(255, 45, 120, 0.06);
-      line-height: 1;
-    }
-
-    .valentines-banner h3 {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 22px;
-      color: var(--neon-pink);
-      text-shadow: var(--glow-pink);
-      margin-bottom: 6px;
-    }
-
-    .valentines-banner p {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    /* Floating hearts */
-    .hearts-float {
-      position: absolute;
-      top: 0;
-      left: 0;
       right: 0;
-      bottom: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.07;
       pointer-events: none;
-      overflow: hidden;
     }
 
-    .heart-float {
+    /* ── Day 3: Natureza — leaves ── */
+    #tab-2 .day-header {
+      background: radial-gradient(ellipse 80% 120% at 95% 50%, rgba(0, 232, 128, 0.06) 0%, transparent 65%);
+    }
+
+    #tab-2 .day-header .day-ornament {
       position: absolute;
-      font-size: 14px;
-      animation: floatHeart linear infinite;
-      opacity: 0;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.12;
+      pointer-events: none;
     }
 
-    @keyframes floatHeart {
-      0% {
-        transform: translateY(100%) rotate(0deg);
-        opacity: 0;
-      }
+    /* ── Day 4: Aniversário — festive lights + candle ── */
+    #tab-3 .day-header {
+      background: radial-gradient(ellipse 80% 120% at 95% 50%, rgba(255, 215, 0, 0.06) 0%, transparent 65%);
+    }
 
-      10% {
+    #tab-3 .day-header .day-ornament {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    /* ── Day 5: A Volta — suitcase ── */
+    #tab-4 .day-header .day-ornament {
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .festive-lights {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 14px;
+      padding-left: 2px;
+    }
+
+    .light-bulb {
+      width: 8px;
+      height: 10px;
+      border-radius: 50% 50% 40% 40%;
+      position: relative;
+      animation: lightPulse 2.8s ease-in-out infinite;
+    }
+
+    .light-bulb::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 4px;
+      background: var(--card-border);
+      border-radius: 1px;
+    }
+
+    @keyframes lightPulse {
+
+      0%,
+      100% {
         opacity: 0.6;
       }
 
-      90% {
-        opacity: 0.3;
+      50% {
+        opacity: 1;
       }
+    }
 
-      100% {
-        transform: translateY(-200%) rotate(360deg);
-        opacity: 0;
-      }
+    .light-bulb:nth-child(1) {
+      background: #c4a35a;
+      box-shadow: 0 0 6px rgba(196, 163, 90, 0.5);
+      animation-delay: 0s;
+    }
+
+    .light-bulb:nth-child(2) {
+      background: #7a9fc2;
+      box-shadow: 0 0 6px rgba(122, 159, 194, 0.5);
+      animation-delay: 0.4s;
+    }
+
+    .light-bulb:nth-child(3) {
+      background: #b8a9cc;
+      box-shadow: 0 0 6px rgba(184, 169, 204, 0.5);
+      animation-delay: 0.8s;
+    }
+
+    .light-bulb:nth-child(4) {
+      background: #c4a35a;
+      box-shadow: 0 0 6px rgba(196, 163, 90, 0.5);
+      animation-delay: 1.2s;
+    }
+
+    .light-bulb:nth-child(5) {
+      background: #7a9fc2;
+      box-shadow: 0 0 6px rgba(122, 159, 194, 0.5);
+      animation-delay: 1.6s;
+    }
+
+    .light-bulb:nth-child(6) {
+      background: #b8a9cc;
+      box-shadow: 0 0 6px rgba(184, 169, 204, 0.5);
+      animation-delay: 2.0s;
+    }
+
+    .light-bulb:nth-child(7) {
+      background: #c4a35a;
+      box-shadow: 0 0 6px rgba(196, 163, 90, 0.5);
+      animation-delay: 2.4s;
+    }
+
+    /* ── Day 5: A Volta — purple nostalgia ── */
+    #tab-4 .day-header {
+      background: radial-gradient(ellipse 90% 140% at 90% 50%, rgba(191, 0, 255, 0.08) 0%, transparent 65%);
+    }
+
+    .sunset-quote {
+      text-align: center;
+      padding: 40px 20px 20px;
+      position: relative;
+    }
+
+    .sunset-quote-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .sunset-quote-text em {
+      color: var(--neon-pink);
+      text-shadow: var(--glow-pink);
+      font-style: normal;
+    }
+
+    /* Section separator */
+    .time-section-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 8px 0 4px;
+      opacity: 0.5;
     }
 
     /* Scrollbar */
@@ -641,21 +900,12 @@
       border-radius: 10px;
       flex-shrink: 0;
       border: 1px solid var(--card-border);
-      background: linear-gradient(135deg, rgba(191, 0, 255, 0.1), rgba(255, 45, 120, 0.1));
+      background: linear-gradient(135deg, rgba(61, 48, 96, 0.15), rgba(74, 127, 165, 0.1));
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
-    }
-
-    /* Section separator */
-    .time-section-label {
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      padding: 8px 0 4px;
-      opacity: 0.6;
+      color: var(--lavender-dim);
+      opacity: 0.5;
     }
 
     footer {
@@ -666,27 +916,220 @@
       letter-spacing: 1px;
       font-family: 'Playfair Display', serif;
       font-style: italic;
+      position: relative;
+      z-index: 2;
     }
 
     footer span {
       color: var(--neon-pink);
       text-shadow: var(--glow-pink);
     }
+
+    /* ══════════════════════════════════════════
+       EUPHORIA EFFECTS
+    ══════════════════════════════════════════ */
+
+    /* Scanlines */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg,
+          transparent,
+          transparent 3px,
+          rgba(0, 0, 0, 0.022) 3px,
+          rgba(0, 0, 0, 0.022) 4px);
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* Neon flicker */
+    @keyframes neonFlicker {
+
+      0%,
+      18%,
+      20%,
+      24%,
+      54%,
+      56%,
+      100% {
+        opacity: 1;
+        text-shadow: var(--glow-pink);
+      }
+
+      19%,
+      22%,
+      55% {
+        opacity: 0.55;
+        text-shadow: none;
+      }
+    }
+
+    /* Chromatic aberration on card hover */
+    @keyframes chromaBlip {
+      0% {
+        text-shadow: none;
+      }
+
+      15% {
+        text-shadow: -2px 0 rgba(255, 0, 80, 0.7), 2px 0 rgba(0, 200, 255, 0.7);
+      }
+
+      40% {
+        text-shadow: 2px 0 rgba(255, 0, 80, 0.45), -1px 0 rgba(0, 200, 255, 0.45);
+      }
+
+      70% {
+        text-shadow: -1px 0 rgba(255, 0, 80, 0.2), 1px 0 rgba(0, 200, 255, 0.2);
+      }
+
+      100% {
+        text-shadow: none;
+      }
+    }
+
+    .timeline-card:hover .event-name {
+      animation: chromaBlip 0.45s ease forwards;
+    }
+
+    /* Bokeh */
+    #bokehContainer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bokeh {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(24px);
+      opacity: 0;
+      animation: bokehFloat linear infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes bokehFloat {
+      0% {
+        transform: translateY(110vh) scale(0.5);
+        opacity: 0;
+      }
+
+      8% {
+        opacity: var(--bo, 0.12);
+      }
+
+      90% {
+        opacity: calc(var(--bo, 0.12) * 0.55);
+      }
+
+      100% {
+        transform: translateY(-15vh) scale(1.15);
+        opacity: 0;
+      }
+    }
+
+    /* Cursor trail sparks */
+    .spark {
+      position: fixed;
+      pointer-events: none;
+      border-radius: 50%;
+      z-index: 99999;
+      animation: sparkFade 0.65s ease forwards;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes sparkFade {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) translateY(-20px) scale(0.1);
+        opacity: 0;
+      }
+    }
+
+    /* Glitter on title */
+    #glitterContainer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 3;
+    }
+
+    .glitter-star {
+      position: absolute;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      animation: glitterBlink 1.6s ease-in-out forwards;
+      transform-origin: center;
+    }
+
+    @keyframes glitterBlink {
+      0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+      }
+
+      25% {
+        transform: scale(1.3) rotate(36deg);
+        opacity: 1;
+      }
+
+      70% {
+        transform: scale(0.9) rotate(108deg);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: scale(0) rotate(180deg);
+        opacity: 0;
+      }
+    }
+
+    /* Rhinestones */
+    .rhinestone {
+      position: fixed;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      animation: rhinestoneShimmer ease-in-out infinite;
+    }
+
+    @keyframes rhinestoneShimmer {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0.7) rotate(0deg);
+      }
+
+      50% {
+        opacity: 0.5;
+        transform: scale(1.2) rotate(36deg);
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Floating hearts -->
-  <div class="hearts-float" id="heartsContainer"></div>
+  <!-- Sakura petals -->
+  <div id="sakuraContainer"></div>
 
   <!-- HERO -->
   <div class="hero">
-    <p class="hero-eyebrow">✦ Roteiro de viagem ✦ Dia dos Namorados 2026</p>
+    <p class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      Roteiro de viagem &nbsp;·&nbsp; Dia dos Namorados 2026
+      <span class="hero-eyebrow-line right"></span>
+    </p>
     <h1 class="hero-title">São Paulo</h1>
     <p class="hero-subtitle">12 — 16 de junho &nbsp;·&nbsp; de volta à Etersis</p>
-
-    <!-- (contagem regressiva removida) -->
   </div>
 
   <!-- TABS -->
@@ -720,21 +1163,26 @@
         <div class="day-label">Dia 1 / 4 &nbsp;·&nbsp; Sexta-feira, 12 de junho</div>
         <div class="day-title">A CHEGADA</div>
         <div class="day-subtitle">São Paulo te espera. E a cobertura, a banheira, e a noite.</div>
+        <div class="day-progress"></div>
       </div>
 
       <div class="valentines-banner">
-        <h3>♥ Feliz Dia dos Namorados ♥</h3>
+        <h3>Feliz Dia dos Namorados</h3>
         <p>Que o começo dessa viagem seja tão especial quanto vocês dois.</p>
       </div>
 
       <div class="timeline">
-        <!-- Check-in BnB -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">16:00 – 17:00</div>
-              <div class="event-icon">🏠</div>
+              <div class="event-icon"><!-- casa -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" />
+                  <path d="M9 21V12h6v9" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Chegada no Airbnb</div>
                 <span class="event-type-badge badge-stay">Cobertura · Centro SP</span>
@@ -753,13 +1201,18 @@
           </div>
         </div>
 
-        <!-- Tem Umami -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">17:00 – 18:00</div>
-              <div class="event-icon">🚶‍♂️</div>
+              <div class="event-icon"><!-- caminhar -->
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="4" r="1.5" />
+                  <path d="M9 8l1.5 3 2.5-1 1 5" />
+                  <path d="M9 17l1 4M14 12l2 5" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Caminhada até o Tem Umami</div>
                 <span class="event-type-badge badge-walk">A pé</span>
@@ -777,13 +1230,17 @@
           </div>
         </div>
 
-        <!-- Jantar Tem Umami -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">18:00 – 20:00</div>
-              <div class="event-icon">🍜</div>
+              <div class="event-icon"><!-- tigela -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 11c0 4.4 3.6 8 8 8s8-3.6 8-8H4z" />
+                  <path d="M4 11H2M22 11h-2M12 3v3M9 4l.8 2.5M15 4l-.8 2.5" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Tem Umami — Bar ou Lamen</div>
                 <span class="event-type-badge badge-eat">Jantar · Dia dos Namorados</span>
@@ -796,23 +1253,34 @@
                   <p><strong>Tem Umami</strong> — o lamen que virou destino. Uma das casas mais queridas da cena
                     japonesa em SP, famosa pela profundidade dos caldos e pelo ambiente que mistura aconchego e estilo.
                     Tem bar também, pra quem quiser começar com um drinque.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Tem+Umami+S%C3%A3o+Paulo" target="_blank"
-                      style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google
-                      Maps</a></p>
+                  <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Tem+Umami+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Voltar ao BnB -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">20:00 – 20:15</div>
-              <div class="event-icon">🌆</div>
+              <div class="event-icon"><!-- skyline -->
+                <svg viewBox="0 0 24 24">
+                  <rect x="2" y="14" width="4" height="8" />
+                  <rect x="7" y="10" width="4" height="12" />
+                  <rect x="13" y="12" width="3" height="10" />
+                  <rect x="17" y="7" width="5" height="15" />
+                  <line x1="1" y1="22" x2="23" y2="22" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">De volta pra cobertura</div>
                 <span class="event-type-badge badge-stay">Vista noturna · SP</span>
@@ -838,16 +1306,32 @@
         <div class="day-label">Dia 2 / 4 &nbsp;·&nbsp; Sábado, 13 de junho</div>
         <div class="day-title">O CENTRO HISTÓRICO</div>
         <div class="day-subtitle">Mosteiros, museus e uma noite que começa do alto.</div>
+        <div class="day-progress"></div>
+        <!-- Ornamento arquitetônico decorativo -->
+        <div class="day-ornament" aria-hidden="true">
+          <svg width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 110 Q20 60 80 20 Q140 60 140 110" stroke="#a0845a" stroke-width="1" fill="none" />
+            <path d="M35 110 Q35 70 80 38 Q125 70 125 110" stroke="#a0845a" stroke-width="1" fill="none" />
+            <path d="M50 110 Q50 78 80 55 Q110 78 110 110" stroke="#a0845a" stroke-width="0.8" fill="none" />
+            <circle cx="80" cy="20" r="3" stroke="#a0845a" stroke-width="1" />
+            <line x1="10" y1="110" x2="150" y2="110" stroke="#a0845a" stroke-width="0.8" />
+          </svg>
+        </div>
       </div>
 
       <div class="timeline">
-        <!-- Mosteiro -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">09:00 – 09:15</div>
-              <div class="event-icon">🚶‍♂️</div>
+              <div class="event-icon">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="4" r="1.5" />
+                  <path d="M9 8l1.5 3 2.5-1 1 5" />
+                  <path d="M9 17l1 4M14 12l2 5" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Caminhada até o Mosteiro de São Bento</div>
                 <span class="event-type-badge badge-walk">A pé</span>
@@ -869,7 +1353,13 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">09:15 – 09:45</div>
-              <div class="event-icon">☕</div>
+              <div class="event-icon"><!-- xícara -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 9h12v7a4 4 0 01-4 4H8a4 4 0 01-4-4V9z" />
+                  <path d="M16 11h2a2 2 0 010 4h-2" />
+                  <path d="M7 5c0-1 .5-2 1.5-2.5M11 5c0-1 .5-2 1.5-2.5" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Café no Mosteiro de São Bento</div>
                 <span class="event-type-badge badge-eat">Café da manhã</span>
@@ -881,10 +1371,15 @@
                 <div class="card-desc">
                   <p>O famoso café colonial dos monges beneditinos. Pão, manteiga, mel, queijo... tudo feito pelos
                     monges. Um ritual matinal que não tem igual em SP. Chegue cedo — a fila aparece rápido.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Mosteiro+de+S%C3%A3o+Bento+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Mosteiro+de+S%C3%A3o+Bento+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -896,7 +1391,13 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">09:45 – 10:15</div>
-              <div class="event-icon">⛪</div>
+              <div class="event-icon"><!-- arco / mosteiro -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 21V10a7 7 0 0114 0v11" />
+                  <line x1="3" y1="21" x2="21" y2="21" />
+                  <path d="M9 21v-5a3 3 0 016 0v5" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Mosteiro de São Bento</div>
                 <span class="event-type-badge badge-culture">Patrimônio histórico</span>
@@ -909,10 +1410,15 @@
                   <p><strong>Fundado em 1598.</strong> A basílica tem um interior dourado e deslumbrante — um contraste
                     total com o caos da metrópole lá fora. Um dos edifícios mais impressionantes do centro histórico
                     paulistano.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Mosteiro+de+S%C3%A3o+Bento+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Mosteiro+de+S%C3%A3o+Bento+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -924,7 +1430,15 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">10:15 – 10:45</div>
-              <div class="event-icon">🏙️</div>
+              <div class="event-icon"><!-- edifício alto -->
+                <svg viewBox="0 0 24 24">
+                  <rect x="4" y="2" width="16" height="20" rx="1" />
+                  <line x1="4" y1="9" x2="20" y2="9" />
+                  <line x1="4" y1="15" x2="20" y2="15" />
+                  <line x1="9" y1="2" x2="9" y2="22" />
+                  <line x1="15" y1="2" x2="15" y2="22" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Farol Santander</div>
                 <span class="event-type-badge badge-culture">Mirante · Arte</span>
@@ -936,10 +1450,15 @@
                 <div class="card-desc">
                   <p><strong>O arranha-céu mais icônico do centro.</strong> O Edifício Altino Arantes tem um terraço de
                     onde SP se revela inteira. Arte contemporânea nos andares, vista de 360° no topo. Um must.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Farol+Sandersantander+S%C3%A3o+Paulo+OR+Edif%C3%ADcio+Altino+Arantes"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Farol+Sandersantander+S%C3%A3o+Paulo+OR+Edif%C3%ADcio+Altino+Arantes"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -951,7 +1470,12 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">10:45 – 11:15</div>
-              <div class="event-icon">🎨</div>
+              <div class="event-icon"><!-- moldura/arte -->
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <rect x="7" y="7" width="10" height="10" rx="1" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Centro Cultural Banco do Brasil</div>
                 <span class="event-type-badge badge-culture">CCBB · Arte</span>
@@ -963,10 +1487,15 @@
                 <div class="card-desc">
                   <p>O CCBB SP é um dos centros culturais mais visitados do Brasil. Sempre tem uma exposição incrível
                     rolando — o edifício histórico em si já vale a visita.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=CCBB+Centro+Cultural+Banco+do+Brasil+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=CCBB+Centro+Cultural+Banco+do+Brasil+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -978,7 +1507,15 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">11:15 – 12:00</div>
-              <div class="event-icon">🏛️</div>
+              <div class="event-icon"><!-- colunas -->
+                <svg viewBox="0 0 24 24">
+                  <rect x="2" y="20" width="20" height="2" />
+                  <rect x="4" y="4" width="2" height="16" />
+                  <rect x="11" y="4" width="2" height="16" />
+                  <rect x="18" y="4" width="2" height="16" />
+                  <rect x="2" y="2" width="20" height="2" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Pátio do Colégio</div>
                 <span class="event-type-badge badge-culture">Fundação de SP</span>
@@ -990,10 +1527,15 @@
                 <div class="card-desc">
                   <p><strong>Aqui SP nasceu.</strong> O local exato onde os jesuítas fundaram a cidade em 1554. Uma
                     mistura de museu, igreja e praça aberta — no coração do centro histórico.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=P%C3%A1tio+do+Col%C3%A9gio+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=P%C3%A1tio+do+Col%C3%A9gio+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1005,7 +1547,15 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">12:00 – 12:30</div>
-              <div class="event-icon">🏙️</div>
+              <div class="event-icon">
+                <svg viewBox="0 0 24 24">
+                  <rect x="4" y="2" width="16" height="20" rx="1" />
+                  <line x1="4" y1="9" x2="20" y2="9" />
+                  <line x1="4" y1="15" x2="20" y2="15" />
+                  <line x1="9" y1="2" x2="9" y2="22" />
+                  <line x1="15" y1="2" x2="15" y2="22" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Museu da Cidade de São Paulo</div>
                 <span class="event-type-badge badge-culture">História paulistana</span>
@@ -1017,10 +1567,15 @@
                 <div class="card-desc">
                   <p>A memória urbana de São Paulo em formato de museu. Fotos, mapas e objetos que mostram como essa
                     cidade gigante se construiu ao longo dos séculos.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Museu+da+Cidade+de+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Museu+da+Cidade+de+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1032,7 +1587,13 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">12:30 – 13:30</div>
-              <div class="event-icon">🍽️</div>
+              <div class="event-icon"><!-- garfo e faca -->
+                <svg viewBox="0 0 24 24">
+                  <line x1="8" y1="3" x2="8" y2="21" />
+                  <path d="M5 3v6a3 3 0 006 0V3" />
+                  <line x1="16" y1="3" x2="16" y2="21" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Pateo Cuccina ou Almoço</div>
                 <span class="event-type-badge badge-eat">Almoço</span>
@@ -1043,10 +1604,15 @@
               <div class="card-body-inner">
                 <div class="card-desc">
                   <p>Pausa necessária depois de tanta cultura. Recarregue para a segunda metade do dia.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Pateo+Cuccina+OR+P%C3%A1tio+Cucina+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Pateo+Cuccina+OR+P%C3%A1tio+Cucina+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1058,7 +1624,12 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">13:30 – 15:00</div>
-              <div class="event-icon">🖼️</div>
+              <div class="event-icon"><!-- moldura/arte -->
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <rect x="7" y="7" width="10" height="10" rx="1" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Pinacoteca do Estado</div>
                 <span class="event-type-badge badge-culture">Arte brasileira</span>
@@ -1071,10 +1642,15 @@
                   <p><strong>O museu de arte mais antigo de SP.</strong> Tijolos vermelhos, jardim interno e um acervo
                     imenso de arte brasileira. A Pinacoteca tem uma qualidade de silêncio que poucos lugares conseguem.
                   </p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Pinacoteca+do+Estado+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Pinacoteca+do+Estado+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1086,7 +1662,12 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">15:00 – 15:30</div>
-              <div class="event-icon">📚</div>
+              <div class="event-icon"><!-- livro -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Museu da Literatura Brasileira</div>
                 <span class="event-type-badge badge-culture">Literatura</span>
@@ -1098,10 +1679,15 @@
                 <div class="card-desc">
                   <p>Para quem ama palavras. Um espaço dedicado à memória literária brasileira — autores, manuscritos,
                     primeiras edições.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Museu+da+Literatura+Brasileira+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Museu+da+Literatura+Brasileira+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1113,7 +1699,12 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">15:30 – 16:15</div>
-              <div class="event-icon">✝️</div>
+              <div class="event-icon"><!-- cruz ornamental -->
+                <svg viewBox="0 0 24 24">
+                  <line x1="12" y1="2" x2="12" y2="22" />
+                  <line x1="4" y1="8" x2="20" y2="8" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">MAS SP — Museu de Arte Sacra</div>
                 <span class="event-type-badge badge-culture">Arte sacra</span>
@@ -1125,10 +1716,15 @@
                 <div class="card-desc">
                   <p>Instalado no Mosteiro da Imaculada Conceição, o MAS SP tem um dos maiores acervos de arte sacra da
                     América Latina. Esculturas, pinturas e ourivesaria dos séculos XVII ao XX.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Museu+de+Arte+Sacra+de+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Museu+de+Arte+Sacra+de+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1140,7 +1736,12 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">17:00 – 18:30</div>
-              <div class="event-icon">🏠</div>
+              <div class="event-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" />
+                  <path d="M9 21V12h6v9" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Bnb — Se arrumar</div>
                 <span class="event-type-badge badge-stay">Preparação</span>
@@ -1163,7 +1764,11 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">19:00 – 21:00</div>
-              <div class="event-icon">🍷</div>
+              <div class="event-icon"><!-- taça -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M8 22h8M12 16v6M5 2l2.5 9a4.5 4.5 0 009 0L19 2H5z" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Jantar no Lassù</div>
                 <span class="event-type-badge badge-eat">Jantar · Restaurante giratório</span>
@@ -1176,10 +1781,15 @@
                   <p><strong>O restaurante giratório mais famoso de SP.</strong> No topo do Hotel Unique, o Lassù gira
                     lentamente enquanto SP se revela em 360°. Alta gastronomia com a melhor vista possível. Uma das
                     experiências mais cinematográficas da cidade.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Lass%C3%B9+Hotel+Unique+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Lass%C3%B9+Hotel+Unique+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1191,7 +1801,11 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">21:00 – 22:00</div>
-              <div class="event-icon">🌃</div>
+              <div class="event-icon"><!-- lua + estrela -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Iccarus Bar</div>
                 <span class="event-type-badge badge-night">Bar noturno · Centro</span>
@@ -1203,10 +1817,14 @@
                 <div class="card-desc">
                   <p><strong>Iccarus</strong> — um dos bares mais badalados do centro histórico de SP. Ambiente
                     descolado, drinques autorais, música boa. O lugar certo pra fechar uma noite como essa.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Iccarus+Bar+S%C3%A3o+Paulo" target="_blank"
-                      style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍 Ver no Google
-                      Maps</a></p>
+                  <a class="maps-link" href="https://www.google.com/maps/search/?api=1&query=Iccarus+Bar+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1219,8 +1837,24 @@
     <div class="tab-content" id="tab-2">
       <div class="day-header">
         <div class="day-label">Dia 3 / 4 &nbsp;·&nbsp; Domingo, 14 de junho</div>
-        <div class="day-title">A NATUREZA & O FIGUEIRA</div>
+        <div class="day-title">A NATUREZA &amp; O FIGUEIRA</div>
         <div class="day-subtitle">Do aquário ao zoológico, de tubarões a girafas — e uma figueira centenária.</div>
+        <div class="day-progress"></div>
+        <!-- Folhas decorativas -->
+        <div class="day-ornament" aria-hidden="true">
+          <svg width="140" height="110" viewBox="0 0 140 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M70 10 Q90 30 80 60 Q70 80 50 70 Q30 60 40 30 Q50 10 70 10Z" stroke="#4a8a6a" stroke-width="1"
+              fill="rgba(74,138,106,0.08)" />
+            <path d="M70 10 Q70 40 70 70" stroke="#4a8a6a" stroke-width="0.8" />
+            <path d="M95 20 Q108 38 100 62 Q92 78 78 70 Q64 62 72 38 Q80 20 95 20Z" stroke="#4a8a6a" stroke-width="0.8"
+              fill="rgba(74,138,106,0.05)" />
+            <!-- sakura petal shapes -->
+            <ellipse cx="30" cy="85" rx="10" ry="6" transform="rotate(-30 30 85)" stroke="#b8a9cc" stroke-width="0.8"
+              fill="rgba(184,169,204,0.07)" />
+            <ellipse cx="115" cy="30" rx="8" ry="5" transform="rotate(20 115 30)" stroke="#b8a9cc" stroke-width="0.8"
+              fill="rgba(184,169,204,0.07)" />
+          </svg>
+        </div>
       </div>
 
       <div class="timeline">
@@ -1229,7 +1863,13 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">08:30 – 09:00</div>
-              <div class="event-icon">☕</div>
+              <div class="event-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 9h12v7a4 4 0 01-4 4H8a4 4 0 01-4-4V9z" />
+                  <path d="M16 11h2a2 2 0 010 4h-2" />
+                  <path d="M7 5c0-1 .5-2 1.5-2.5M11 5c0-1 .5-2 1.5-2.5" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Café da Manhã</div>
                 <span class="event-type-badge badge-eat">Manhã na cobertura</span>
@@ -1251,7 +1891,13 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">09:30 – 11:30</div>
-              <div class="event-icon">🦈</div>
+              <div class="event-icon"><!-- onda/peixe -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M2 12c2-4 6-6 10-6s8 2 10 6c-2 4-6 6-10 6S4 16 2 12z" />
+                  <path d="M2 12c2 2 4 3 6 3" />
+                  <circle cx="16" cy="12" r="2" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Aquário de São Paulo</div>
                 <span class="event-type-badge badge-nature">Natureza · Vida marinha</span>
@@ -1264,10 +1910,15 @@
                   <p><strong>O maior aquário da América do Sul.</strong> Tubarões, raias, polvos, arraias elétricas —
                     mais de 300 espécies. O túnel subaquático onde você fica rodeado de tubarões por todos os lados é
                     inesquecível.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Aqu%C3%A1rio+de+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Aqu%C3%A1rio+de+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1279,7 +1930,13 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">11:30 – 12:30</div>
-              <div class="event-icon">🍽️</div>
+              <div class="event-icon">
+                <svg viewBox="0 0 24 24">
+                  <line x1="8" y1="3" x2="8" y2="21" />
+                  <path d="M5 3v6a3 3 0 006 0V3" />
+                  <line x1="16" y1="3" x2="16" y2="21" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Almoço</div>
                 <span class="event-type-badge badge-eat">Almoço</span>
@@ -1301,7 +1958,12 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">13:00 – 17:00</div>
-              <div class="event-icon">🦁</div>
+              <div class="event-icon"><!-- pata/folha -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2C8 2 4 6 4 10c0 5.5 8 12 8 12s8-6.5 8-12c0-4-4-8-8-8z" />
+                  <path d="M12 6v8M9 9l3-3 3 3" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Zoológico de São Paulo</div>
                 <span class="event-type-badge badge-nature">Zoo · Mata Atlântica</span>
@@ -1314,10 +1976,15 @@
                   <p><strong>O maior zoológico da América Latina.</strong> Mais de 3.000 animais em 824 mil m² de Mata
                     Atlântica preservada. Girafas, leões, hipopótamos, micos... reserve tempo pra passear sem pressa.
                   </p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Zool%C3%B3gico+de+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Zool%C3%B3gico+de+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1329,7 +1996,12 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">17:00 – 18:30</div>
-              <div class="event-icon">🏠</div>
+              <div class="event-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" />
+                  <path d="M9 21V12h6v9" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Bnb — Se arrumar</div>
                 <span class="event-type-badge badge-stay">Preparação</span>
@@ -1352,7 +2024,11 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">19:00 – 22:00</div>
-              <div class="event-icon">🌳</div>
+              <div class="event-icon"><!-- árvore -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 2L5 12h4v8h6v-8h4L12 2z" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Jantar no Figueira Rubaiyat</div>
                 <span class="event-type-badge badge-eat">Jantar · Gastronomia</span>
@@ -1365,10 +2041,15 @@
                   <p><strong>O restaurante debaixo de uma figueira centenária.</strong> O Figueira Rubaiyat é uma das
                     experiências gastronômicas mais únicas de SP — o salão todo é construído em volta de uma figueira de
                     100 anos. Carnes argentinas, atmosfera única, memória garantida.</p>
-                  <p style="margin-top:8px;"><a
-                      href="https://www.google.com/maps/search/?api=1&query=Figueira+Rubaiyat+S%C3%A3o+Paulo"
-                      target="_blank" style="font-size:11px;color:var(--neon-blue);text-decoration:none;opacity:0.9;">📍
-                      Ver no Google Maps</a></p>
+                  <a class="maps-link"
+                    href="https://www.google.com/maps/search/?api=1&query=Figueira+Rubaiyat+S%C3%A3o+Paulo"
+                    target="_blank">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z" />
+                      <circle cx="12" cy="9" r="2.5" />
+                    </svg>
+                    Ver no Google Maps
+                  </a>
                 </div>
               </div>
             </div>
@@ -1381,8 +2062,39 @@
     <div class="tab-content" id="tab-3">
       <div class="day-header">
         <div class="day-label">Dia 4 / 4 &nbsp;·&nbsp; Segunda-feira, 15 de junho</div>
-        <div class="day-title">O DIA DO CHURUMELAS</div>
+        <!-- Festive lights -->
+        <div class="festive-lights" aria-hidden="true">
+          <div class="light-bulb"></div>
+          <div class="light-bulb"></div>
+          <div class="light-bulb"></div>
+          <div class="light-bulb"></div>
+          <div class="light-bulb"></div>
+          <div class="light-bulb"></div>
+          <div class="light-bulb"></div>
+        </div>
+        <div class="day-title">ANIVERSÁRIO!</div>
         <div class="day-subtitle">Check-out da cobertura. E então — o melhor amigo merece.</div>
+        <div class="day-progress"></div>
+        <!-- Velinha decorativa -->
+        <div class="day-ornament" aria-hidden="true">
+          <svg width="70" height="110" viewBox="0 0 70 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- chama -->
+            <path d="M35 42 C35 42 26 32 28 22 C30 14 35 10 35 10 C35 10 40 14 42 22 C44 32 35 42 35 42Z"
+              stroke="#ffd700" stroke-width="1" fill="rgba(255,215,0,0.08)" />
+            <ellipse cx="35" cy="30" rx="4" ry="6" stroke="#ffd700" stroke-width="0.6" fill="rgba(255,215,0,0.05)" />
+            <!-- pavio -->
+            <line x1="35" y1="42" x2="35" y2="48" stroke="#ffd700" stroke-width="1.2" />
+            <!-- corpo da vela -->
+            <rect x="24" y="48" width="22" height="52" rx="3" stroke="#ffd700" stroke-width="1"
+              fill="rgba(255,215,0,0.07)" />
+            <!-- escorrido de cera -->
+            <path d="M24 58 Q18 64 20 72" stroke="#ffd700" stroke-width="0.8" fill="none" />
+            <path d="M46 62 Q52 68 50 76" stroke="#ffd700" stroke-width="0.8" fill="none" />
+            <!-- listras decorativas -->
+            <line x1="24" y1="68" x2="46" y2="68" stroke="#ffd700" stroke-width="0.5" opacity="0.4" />
+            <line x1="24" y1="78" x2="46" y2="78" stroke="#ffd700" stroke-width="0.5" opacity="0.4" />
+          </svg>
+        </div>
       </div>
 
       <div class="timeline">
@@ -1391,7 +2103,12 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">12:00 – 12:15</div>
-              <div class="event-icon">🏠</div>
+              <div class="event-icon">
+                <svg viewBox="0 0 24 24">
+                  <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" />
+                  <path d="M9 21V12h6v9" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Check-out do Airbnb</div>
                 <span class="event-type-badge badge-stay">Despedida da cobertura</span>
@@ -1414,7 +2131,13 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">12:15 – 20:00</div>
-              <div class="event-icon">🎉</div>
+              <div class="event-icon"><!-- vela de aniversário -->
+                <svg viewBox="0 0 24 24">
+                  <rect x="9" y="10" width="6" height="12" rx="1" />
+                  <path d="M12 10V7M11 5c0-1 2-3 1-5 1 2 3 4 1 5" />
+                  <line x1="7" y1="22" x2="17" y2="22" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Na casa do Churumelas</div>
                 <span class="event-type-badge badge-friends">O melhor amigo</span>
@@ -1427,8 +2150,9 @@
                   <p><strong>O Churumelas merece esse destaque.</strong> Dia especial na casa do melhor amigo — risada
                     sem parar, caos bonito, memórias que só quem é família de verdade constrói. Sem roteiro, sem hora
                     marcada, só presença e carinho.</p>
-                  <p style="margin-top:8px; font-size: 11px; letter-spacing: 1px; color: var(--neon-gold);">✦ A agenda
-                    oficial termina aqui ✦</p>
+                  <p
+                    style="margin-top:10px; font-size: 11px; letter-spacing: 1.5px; color: var(--warm-gold); opacity: 0.8;">
+                    &#x2015; A agenda oficial termina aqui &#x2015;</p>
                 </div>
               </div>
             </div>
@@ -1443,6 +2167,32 @@
         <div class="day-label">Terça-feira, 16 de junho</div>
         <div class="day-title">A VOLTA</div>
         <div class="day-subtitle">Florianópolis chama. SP fica na memória.</div>
+        <div class="day-progress"></div>
+        <!-- Malinha de viagem decorativa -->
+        <div class="day-ornament" aria-hidden="true">
+          <svg width="130" height="100" viewBox="0 0 130 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- alça -->
+            <path d="M42 28 L42 18 Q42 12 48 12 L82 12 Q88 12 88 18 L88 28" stroke="#bf00ff" stroke-width="1"
+              fill="none" />
+            <!-- corpo -->
+            <rect x="16" y="28" width="98" height="62" rx="7" stroke="#bf00ff" stroke-width="1"
+              fill="rgba(191,0,255,0.06)" />
+            <!-- divisória central -->
+            <line x1="65" y1="28" x2="65" y2="90" stroke="#bf00ff" stroke-width="0.7" opacity="0.4" />
+            <!-- fechos laterais -->
+            <rect x="14" y="50" width="5" height="14" rx="2" stroke="#bf00ff" stroke-width="0.8"
+              fill="rgba(191,0,255,0.1)" />
+            <rect x="111" y="50" width="5" height="14" rx="2" stroke="#bf00ff" stroke-width="0.8"
+              fill="rgba(191,0,255,0.1)" />
+            <!-- cadeado -->
+            <rect x="57" y="54" width="16" height="10" rx="2" stroke="#bf00ff" stroke-width="0.8"
+              fill="rgba(191,0,255,0.1)" />
+            <path d="M60 54 L60 50 Q60 47 65 47 Q70 47 70 50 L70 54" stroke="#bf00ff" stroke-width="0.8" fill="none" />
+            <!-- rodas -->
+            <circle cx="32" cy="93" r="5" stroke="#bf00ff" stroke-width="0.8" fill="rgba(191,0,255,0.1)" />
+            <circle cx="98" cy="93" r="5" stroke="#bf00ff" stroke-width="0.8" fill="rgba(191,0,255,0.1)" />
+          </svg>
+        </div>
       </div>
 
       <div class="timeline">
@@ -1451,7 +2201,15 @@
           <div class="timeline-card" onclick="toggleCard(this)">
             <div class="timeline-card-header">
               <div class="time-badge">08:30 – 09:30</div>
-              <div class="event-icon">🚗</div>
+              <div class="event-icon"><!-- carro -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 11l2-5h10l2 5" />
+                  <rect x="2" y="11" width="20" height="6" rx="1" />
+                  <circle cx="7" cy="18" r="2" />
+                  <circle cx="17" cy="18" r="2" />
+                  <line x1="9" y1="18" x2="15" y2="18" />
+                </svg>
+              </div>
               <div class="event-info">
                 <div class="event-name">Volta para Florianópolis</div>
                 <span class="event-type-badge badge-travel">Viagem de retorno</span>
@@ -1470,11 +2228,10 @@
         </div>
       </div>
 
-      <div style="text-align: center; padding: 40px 20px; position: relative;">
-        <div
-          style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; color: var(--text-muted); line-height: 1.6;">
+      <div class="sunset-quote">
+        <div class="sunset-quote-text">
           "The city was ours for a moment,<br>
-          <span style="color: var(--neon-pink); text-shadow: var(--glow-pink);">and that's all we needed.</span>"
+          <em>and that's all we needed.</em>"
         </div>
       </div>
     </div>
@@ -1499,26 +2256,199 @@
       card.classList.toggle('expanded');
     }
 
-    // Floating hearts
-    const heartsContainer = document.getElementById('heartsContainer');
-    const heartChars = ['♥', '♡', '✦', '✧', '⋆'];
-    const heartColors = ['#ff2d78', '#bf00ff', '#00c8ff', '#ffd700', '#ff8cc8'];
+    // ── Sakura petals ──
+    const sakuraContainer = document.getElementById('sakuraContainer');
+    const MAX_PETALS = 24;
+    let activePetals = 0;
 
-    function createHeart() {
-      const heart = document.createElement('span');
-      heart.classList.add('heart-float');
-      heart.textContent = heartChars[Math.floor(Math.random() * heartChars.length)];
-      heart.style.left = Math.random() * 100 + '%';
-      heart.style.animationDuration = (Math.random() * 8 + 6) + 's';
-      heart.style.animationDelay = (Math.random() * 3) + 's';
-      heart.style.color = heartColors[Math.floor(Math.random() * heartColors.length)];
-      heart.style.fontSize = (Math.random() * 12 + 8) + 'px';
-      heart.style.opacity = '0';
-      heartsContainer.appendChild(heart);
-      setTimeout(() => heart.remove(), 14000);
+    // Petal SVG path variants
+    const petalShapes = [
+      'M0,-8 C3,-8 6,-5 6,0 C6,5 3,8 0,8 C-3,8 -6,5 -6,0 C-6,-5 -3,-8 0,-8Z',
+      'M0,-7 C4,-7 7,-4 7,0 C7,4 4,7 0,7 C-4,7 -7,4 -7,0 C-7,-4 -4,-7 0,-7Z',
+      'M0,-9 C2.5,-9 5,-5 5,0 C5,5 2.5,9 0,9 C-2.5,9 -5,5 -5,0 C-5,-5 -2.5,-9 0,-9Z',
+    ];
+
+    // Petal colours — Euphoria: pink/magenta/purple
+    const petalColors = [
+      'rgba(255, 80, 140, 0.55)',
+      'rgba(220, 60, 200, 0.5)',
+      'rgba(185, 80, 255, 0.48)',
+      'rgba(255, 130, 190, 0.52)',
+      'rgba(200, 80, 240, 0.48)',
+      'rgba(255, 100, 160, 0.5)',
+    ];
+
+    function createPetal() {
+      if (activePetals >= MAX_PETALS) return;
+      activePetals++;
+
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+
+      const left = Math.random() * 100;
+      const duration = Math.random() * 14 + 18; // 18–32s
+      const delay = Math.random() * 3;
+      const size = Math.random() * 10 + 10; // 10–20px
+      const shape = petalShapes[Math.floor(Math.random() * petalShapes.length)];
+      const color = petalColors[Math.floor(Math.random() * petalColors.length)];
+      const rotate = Math.random() * 360;
+      const drift = (Math.random() - 0.5) * 60; // horizontal drift
+
+      petal.style.left = left + '%';
+      petal.style.animationDuration = duration + 's';
+      petal.style.animationDelay = delay + 's';
+
+      petal.innerHTML = `<svg width="${size}" height="${size}" viewBox="-10 -10 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="${shape}" fill="${color}" transform="rotate(${rotate})"/>
+      </svg>`;
+
+      // Override keyframe drift with individual style
+      petal.style.setProperty('--drift', drift + 'px');
+
+      sakuraContainer.appendChild(petal);
+
+      // Remove after animation + buffer
+      const totalMs = (duration + delay + 1) * 1000;
+      setTimeout(() => {
+        petal.remove();
+        activePetals--;
+      }, totalMs);
     }
 
-    setInterval(createHeart, 1200);
+    // Stagger initial petals, then maintain
+    let spawnInterval;
+    function startPetals() {
+      createPetal();
+      spawnInterval = setInterval(() => {
+        createPetal();
+      }, 1400);
+    }
+
+    // Override the CSS animation to include drift using JS transform
+    // We'll use a simpler approach — restyle on animationiteration
+    // Actually: override petalFall to use a wrapper approach
+    // Simplest: inject a dynamic keyframe per petal
+    (function patchPetalDrift() {
+      const style = document.createElement('style');
+      style.textContent = `
+        .petal { animation-name: petalFallBase; }
+        @keyframes petalFallBase {
+          0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
+          5%   { opacity: 0.55; }
+          85%  { opacity: 0.35; }
+          100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
+    })();
+
+    startPetals();
+
+    // ══════════════════════════════════════════
+    // EUPHORIA EFFECTS
+    // ══════════════════════════════════════════
+
+    // 1. Bokeh — blurred floating light orbs
+    (() => {
+      const container = document.createElement('div');
+      container.id = 'bokehContainer';
+      document.body.insertBefore(container, document.body.firstChild);
+
+      const palette = [
+        ['rgba(255,45,120,0.8)', 0.14],
+        ['rgba(191,0,255,0.8)', 0.12],
+        ['rgba(0,200,255,0.7)', 0.10],
+        ['rgba(255,130,180,0.7)', 0.13],
+        ['rgba(160,60,255,0.75)', 0.11],
+      ];
+      let active = 0;
+      const MAX = 8;
+
+      function spawnBokeh() {
+        if (active >= MAX) return;
+        active++;
+        const b = document.createElement('div');
+        b.className = 'bokeh';
+        const [color, op] = palette[Math.floor(Math.random() * palette.length)];
+        const size = Math.random() * 70 + 15;
+        const dur = Math.random() * 22 + 14;
+        b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random() * 100}%;background:${color};animation-duration:${dur}s;animation-delay:${(Math.random() * 4).toFixed(1)}s;--bo:${op};`;
+        container.appendChild(b);
+        setTimeout(() => { b.remove(); active--; }, (dur + 5) * 1000);
+      }
+
+      for (let i = 0; i < 4; i++) spawnBokeh();
+      setInterval(spawnBokeh, 2400);
+    })();
+
+    // 2. Cursor trail — neon spark particles
+    (() => {
+      const colors = ['#ff2d78', '#bf00ff', '#00c8ff', '#ffd700', '#ff8cc8', '#e066ff'];
+      let last = 0;
+      document.addEventListener('mousemove', e => {
+        const now = Date.now();
+        if (now - last < 38) return;
+        last = now;
+        if (Math.random() > 0.5) return;
+        const s = document.createElement('div');
+        s.className = 'spark';
+        const size = Math.random() * 6 + 2;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const ox = (Math.random() - 0.5) * 14;
+        const oy = (Math.random() - 0.5) * 14;
+        s.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX + ox}px;top:${e.clientY + oy}px;background:${color};box-shadow:0 0 ${size * 1.8}px ${color};`;
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 660);
+      });
+    })();
+
+    // 3. Glitter — sparkle stars over the hero title
+    (() => {
+      const hero = document.querySelector('.hero');
+      const title = document.querySelector('.hero-title');
+      if (!hero || !title) return;
+      hero.style.position = 'relative';
+      const container = document.createElement('div');
+      container.id = 'glitterContainer';
+      hero.appendChild(container);
+      const colors = ['#ff2d78', '#ffd700', '#ffffff', '#bf00ff', '#00c8ff', '#ffaacc'];
+
+      function spawnGlitter() {
+        const rect = title.getBoundingClientRect();
+        const hRect = hero.getBoundingClientRect();
+        const g = document.createElement('div');
+        g.className = 'glitter-star';
+        const size = Math.random() * 9 + 3;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const left = rect.left - hRect.left + Math.random() * rect.width;
+        const top = rect.top - hRect.top + (Math.random() - 0.2) * rect.height;
+        g.style.cssText = `width:${size}px;height:${size}px;left:${left}px;top:${top}px;background:${color};box-shadow:0 0 ${size}px ${color},0 0 ${size * 2}px ${color};`;
+        container.appendChild(g);
+        setTimeout(() => g.remove(), 1600);
+      }
+
+      setInterval(spawnGlitter, 260);
+    })();
+
+    // 4. Rhinestones — fixed gem-shaped accents scattered around viewport
+    (() => {
+      const positions = [
+        { l: '7%', t: '11%' }, { l: '93%', t: '7%' }, { l: '4%', t: '48%' },
+        { l: '96%', t: '38%' }, { l: '11%', t: '72%' }, { l: '89%', t: '61%' },
+        { l: '50%', t: '2%' }, { l: '22%', t: '88%' }, { l: '78%', t: '84%' },
+        { l: '34%', t: '5%' }, { l: '66%', t: '4%' }, { l: '3%', t: '25%' },
+        { l: '97%', t: '72%' }, { l: '18%', t: '55%' }, { l: '82%', t: '20%' },
+      ];
+      const colors = ['#ff2d78', '#ffd700', '#ffffff', '#bf00ff', '#00c8ff'];
+      positions.forEach((pos, i) => {
+        const r = document.createElement('div');
+        r.className = 'rhinestone';
+        const size = Math.random() * 5 + 3;
+        const color = colors[i % colors.length];
+        r.style.cssText = `left:${pos.l};top:${pos.t};width:${size}px;height:${size}px;background:${color};box-shadow:0 0 ${size * 2}px ${color};animation-duration:${(Math.random() * 3 + 2).toFixed(1)}s;animation-delay:${(Math.random() * 5).toFixed(1)}s;`;
+        document.body.appendChild(r);
+      });
+    })();
 
     // === Marcar destinos (checkbox + localStorage) ===
     function initMarking() {
@@ -1527,25 +2457,19 @@
         const header = card.querySelector('.timeline-card-header');
         if (!header) return;
 
-        // Create checkbox
         const label = document.createElement('label');
         label.className = 'mark-checkbox';
-        label.innerHTML = `
-        <input type="checkbox">
-        <span class="checkmark">✓</span>
-      `;
+        label.innerHTML = `<input type="checkbox"><span class="checkmark">✓</span>`;
 
         const checkbox = label.querySelector('input');
         const eventNameEl = card.querySelector('.event-name');
         const key = eventNameEl ? eventNameEl.textContent.trim() : `card-${index}`;
 
-        // Load saved state
         if (localStorage.getItem('marked_' + key) === 'true') {
           checkbox.checked = true;
           card.classList.add('marked');
         }
 
-        // Toggle handler
         checkbox.addEventListener('change', () => {
           if (checkbox.checked) {
             card.classList.add('marked');
@@ -1556,7 +2480,9 @@
           }
         });
 
-        // Insert before expand arrow
+        // Prevent checkbox click from toggling card expand
+        label.addEventListener('click', e => e.stopPropagation());
+
         const arrow = header.querySelector('.expand-arrow');
         if (arrow) {
           header.insertBefore(label, arrow);
@@ -1566,7 +2492,6 @@
       });
     }
 
-    // Run after DOM is ready
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initMarking);
     } else {
